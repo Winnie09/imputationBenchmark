@@ -1,0 +1,53 @@
+# Temporary files created by R markdown
+*.utf8.md
+*.knit.md
+
+## R Environment Variables
+.Renviron
+
+## ignore file named readme.txt, .sh, ...
+.*
+readme.txt
+**/*.sh.*
+**/run*.sh
+*.h5ad
+*.bak*
+*.csv
+*.rds
+*.rda
+*.mat
+checkpoints
+redo*
+
+## ignore data
+**/data
+!**/data/code
+## ignore results
+**/result
+!**/result/assess
+
+## plots not on paper
+plot/plot/
+!plot/plot/*4subfig.pdf
+
+
+## ignore other folders
+check_cellline_differential
+cellbench_quality
+realDE_bulkdiff_code_loss  
+mcimpute_test
+test
+why_zinbwave_bad/
+memory.txt/     
+simu/
+!simu/data/code
+
+## ignore binary
+methods/
+
+## ignore large files
+simu/code/impute/autoimpute/checkpoints/
+simu/code/impute/dca/output.h5ad
+eff/code/impute/autoimpute/checkpoints/
+eff/code/impute/dca/output.h5ad
+data/code
