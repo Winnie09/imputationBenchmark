@@ -1,0 +1,39 @@
+> sapply(prop.mito.read, function(i) sum(i>0.6))
+               GSE81861             10xcellline          cellmix1.count 
+                     12                       1                       0 
+         cellmix2.count          cellmix3.count          cellmix4.count 
+                      0                       0                       0 
+         cellmix5.count    RNAmix_sortseq.count    RNAmix_celseq2.count 
+                      0                       0                       0 
+       sc_celseq2.count        sc_dropseq.count            sc_10x.count 
+                      0                       0                       0 
+sc_celseq2_5cl_p1.count sc_celseq2_5cl_p2.count sc_celseq2_5cl_p3.count 
+                      0                       0                       1 
+       sc_10x_5cl.count                     hca 
+                      0                       0 
+> sapply(prop.mito.read, function(i) sum(i>0.8))
+               GSE81861             10xcellline          cellmix1.count 
+                      3                       1                       0 
+         cellmix2.count          cellmix3.count          cellmix4.count 
+                      0                       0                       0 
+         cellmix5.count    RNAmix_sortseq.count    RNAmix_celseq2.count 
+                      0                       0                       0 
+       sc_celseq2.count        sc_dropseq.count            sc_10x.count 
+                      0                       0                       0 
+sc_celseq2_5cl_p1.count sc_celseq2_5cl_p2.count sc_celseq2_5cl_p3.count 
+                      0                       0                       0 
+       sc_10x_5cl.count                     hca 
+                      0                       0 
+> sapply(prop.mito.read, function(i) sum(i>0.9))
+               GSE81861             10xcellline          cellmix1.count 
+                      0                       0                       0 
+         cellmix2.count          cellmix3.count          cellmix4.count 
+                      0                       0                       0 
+         cellmix5.count    RNAmix_sortseq.count    RNAmix_celseq2.count 
+                      0                       0                       0 
+       sc_celseq2.count        sc_dropseq.count            sc_10x.count 
+                      0                       0                       0 
+sc_celseq2_5cl_p1.count sc_celseq2_5cl_p2.count sc_celseq2_5cl_p3.count 
+                      0                       0                       0 
+       sc_10x_5cl.count                     hca 
+                      0                       0 
