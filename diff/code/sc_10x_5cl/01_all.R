@@ -61,8 +61,8 @@ for (i in 1:length(v)){
 }
 tmp = c(v[[1]],v[[2]],v[[3]],v[[4]])
 
-dir.create('/home-4/whou10@jhu.edu/scratch/Wenpin/rna_imputation/diff/result/cellbench_10x_5cl/',recursive = T, showWarnings = F)
-saveRDS(tmp,paste0('/home-4/whou10@jhu.edu/scratch/Wenpin/rna_imputation/diff/result/cellbench_10x_5cl/',method,'.rds'))
+dir.create('/home-4/whou10@jhu.edu/scratch/Wenpin/rna_imputation/diff/result/sc_10x_5cl/',recursive = T, showWarnings = F)
+saveRDS(tmp,paste0('/home-4/whou10@jhu.edu/scratch/Wenpin/rna_imputation/diff/result/sc_10x_5cl/',method,'.rds'))
 
 
 

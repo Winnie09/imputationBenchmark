@@ -16,12 +16,13 @@ for (i in 1:17){
 pd3sp = pd3[id,]
 pd4[,'method'] = factor(coldf[match(pd4[,'method'],coldf[,'shortName']),'fullName'],levels=coldf[match(levels(pd4$method),coldf[,'shortName']),'fullName'])
 
+
 library(reshape2)
 library(gridExtra)
 library(ggplot2)
 library(RColorBrewer)
-mtd = 'SAVER'
-cl = '293T'
+mtd = 'scVI'
+cl = 'H1975'
 rawcor = cor(pd1[,'sc'], pd1[,'bulk'], method='spearman')
 p1 = ggplot(data=pd1, aes(x = sc, y = bulk)) +
   geom_point(color = 'black', size = 0.2, alpha = 0.5) +
@@ -32,11 +33,12 @@ rawcor2 = cor(pd2[,'sc'], pd2[,'bulk'], method='spearman')
 p2 <- ggplot(data=pd2, aes(x = sc, y = bulk)) +
   geom_point(color = 'black', size = 0.2, alpha = 0.5) + 
   theme_classic() +
-  xlab('SAVER imputed single cell') +ylab('bulk (FPKM)') +
+  xlab('scVI imputed single cell') +ylab('bulk (FPKM)') +
   theme(axis.title.x=element_text(size=12),axis.title.y=element_text(size=12))+
   ggtitle(paste0('SCC=',round(rawcor2,2)))
 v <- coldf[match(pd3sp$method,coldf$fullName),'color']
 names(v) <- pd3sp$method
+
 
 p3 <- ggplot() + 
   geom_jitter(data=pd3sp,aes(x=method,y=cor,color=method),size=0.05,width=0.2,alpha=0.5)+

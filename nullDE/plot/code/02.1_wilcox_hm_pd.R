@@ -1,4 +1,5 @@
 dataset = as.character(commandArgs(trailingOnly = T)[1])
+## sc_10x_5cl
 source('/home-4/whou10@jhu.edu/scratch/Wenpin/resource/function.R')
 library(RColorBrewer)
 allmtd = list.files(paste0('/home-4/whou10@jhu.edu/scratch/Wenpin/rna_imputation/nullDE/result/',dataset,'/diff/wilcox/'))
@@ -38,6 +39,3 @@ saveRDS(stat,paste0('/home-4/whou10@jhu.edu/scratch/Wenpin/rna_imputation/result
 pd$method = factor(as.character(pd$method), levels=mtdorder)
 library(ggplot2)
 saveRDS(pd,paste0('/home-4/whou10@jhu.edu/scratch/Wenpin/rna_imputation/nullDE/plot/plot/',dataset,'_wilcox_hm.rds'))
-
-
-

@@ -1,5 +1,5 @@
 dataset = as.character(commandArgs(trailingOnly = T)[[1]])
-## GSE81861, 10x, hca
+## GSE81861, 10x, hca, sc_10x_5cl
 library(RColorBrewer)
 source('/home-4/whou10@jhu.edu/scratch/Wenpin/resource/function.R')
 ## GSE81861, hca, 10x
