@@ -1,0 +1,16 @@
+     User        JobID    JobName  Partition      State  Timelimit               Start                 End    Elapsed     MaxRSS 
+--------- ------------ ---------- ---------- ---------- ---------- ------------------- ------------------- ---------- ---------- 
+whou10@j+ 35759357     baynorm.sh     lrgmem  COMPLETED 1-00:00:00 2019-08-09T16:04:37 2019-08-09T16:20:10   00:15:33            
+          35759357.ba+      batch             COMPLETED            2019-08-09T16:04:37 2019-08-09T16:20:10   00:15:33   5906580K 
+     User        JobID    JobName  Partition      State  Timelimit               Start                 End    Elapsed     MaxRSS 
+--------- ------------ ---------- ---------- ---------- ---------- ------------------- ------------------- ---------- ---------- 
+whou10@j+ 35759358     baynorm.sh     lrgmem  COMPLETED 1-00:00:00 2019-08-09T16:11:07 2019-08-09T16:33:04   00:21:57            
+          35759358.ba+      batch             COMPLETED            2019-08-09T16:11:07 2019-08-09T16:33:04   00:21:57  16622544K 
+     User        JobID    JobName  Partition      State  Timelimit               Start                 End    Elapsed     MaxRSS 
+--------- ------------ ---------- ---------- ---------- ---------- ------------------- ------------------- ---------- ---------- 
+whou10@j+ 35759359     baynorm.sh     lrgmem  COMPLETED 1-00:00:00 2019-08-09T16:11:58 2019-08-09T17:16:29   01:04:31            
+          35759359.ba+      batch             COMPLETED            2019-08-09T16:11:58 2019-08-09T17:16:29   01:04:31 126099668K 
+     User        JobID    JobName  Partition      State  Timelimit               Start                 End    Elapsed     MaxRSS 
+--------- ------------ ---------- ---------- ---------- ---------- ------------------- ------------------- ---------- ---------- 
+whou10@j+ 36919573     baynorm.sh     lrgmem  COMPLETED 3-00:00:00 2019-09-30T20:50:55 2019-09-30T23:06:45   02:15:50            
+          36919573.ba+      batch             COMPLETED            2019-09-30T20:50:55 2019-09-30T23:06:45   02:15:50 249203268K 
