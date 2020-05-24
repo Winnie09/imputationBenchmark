@@ -5,6 +5,15 @@ f <- intersect(f1,f2)
 f <- sub('.rds','',f)
 res <- NULL
 
+mtd = 'scVI'
+sexpr = readRDS(paste0('./result/procimpute/cellbench/',mtd,'/sc_10x_5cl.rds'))
+cl_10x <- sub('.*:','',colnames(sexpr))
+n_10x <- table(cl_10x)
+
+sexpr_fd <- readRDS(paste0('./result/procimpute/GSE81861/',mtd,'/GSE81861_Cell_Line_COUNT.rds'))
+cl_fd <- sub('_.*','', colnames(sexpr_fd))
+n_fd <- table(cl_fd)
+
 
 hmdf <- NULL
 for (sf in f) {
@@ -20,6 +29,34 @@ for (sf in f) {
    for (ds in names(d))
     res <- rbind(res,data.frame(Method=sf,Dataset=ds,Correlation=d[[ds]],platform=ifelse(ds%in%names(d1),'10x','fluidigm'),stringsAsFactors = F))
 }
+hmdf = hmdf[complete.cases(hmdf),]
+nm_10x <- NULL
+for (i in unique(hmdf[hmdf[,'platform']=='10x','Dataset'])){
+  tmp1 <- sub('_.*','',i)
+  tmp2 <- sub('.*_','',i)
+  tmp <- paste0(tmp1, '(', n_10x[tmp1], ')_',tmp2, '(', n_10x[tmp2], ')')
+  hmdf[hmdf[,'platform']=='10x' & hmdf[,'Dataset']==i, 'Dataset'] <-tmp
+  nm_10x <- c(nm_10x,mean(c(n_10x[tmp1], n_10x[tmp2])))
+  names(nm_10x)[length(nm_10x)] <- tmp
+}
+            
+nm_fd <- NULL
+for (i in unique(hmdf[hmdf[,'platform']=='fluidigm','Dataset'])){
+  tmp1 <- sub('_.*','',i)
+  tmp2 <- sub('.*_','',i)
+  tmp <- paste0(tmp1, '(', n_fd[tmp1], ')_',tmp2, '(', n_fd[tmp2], ')')
+  hmdf[hmdf[,'platform']=='fluidigm' & hmdf[,'Dataset']==i, 'Dataset'] <-tmp
+    nm_fd <- c(nm_fd,mean(c(n_fd[tmp1], n_fd[tmp2])))
+  names(nm_fd)[length(nm_fd)] <- tmp
+}
+
+o1 <- order(nm_10x, decreasing=TRUE)
+o2 <- order(nm_fd, decreasing=TRUE)
+o <- c(o1, o2 + length(o1))
+hmdf[,'Method'] = factor(hmdf[,'Method'], levels = mtdorder)
+hmdf[,'platform'] = factor(hmdf[,'platform'], levels = c('10x','fluidigm'))
+hmdf[,'Dataset'] = factor(hmdf[,'Dataset'], levels = c(names(nm_10x), names(nm_fd))[o])
+pd4 <- hmdf
 
 tmp = hmdf[hmdf$platform=='10x',]
 v_10x = tapply(tmp$corMedian,list(tmp$Method),mean,na.rm=T)
@@ -30,7 +67,7 @@ saveRDS(v_fluidigm, './result/perf/assess/imp_diff_eval_fluidigm.rds')
 stat = rowMeans(tapply(hmdf[,'corMedian'], list(hmdf[,'Method'], hmdf$platform), median, na.rm=T))
 stat= stat[!is.na(stat)]
 mtdorder = names(sort(stat))
-hmdf = hmdf[complete.cases(hmdf),]
+
 saveRDS(mtdorder,'./result/perf/rank/imp_diff_eval.rds')
 saveRDS(stat,'./result/perf/assess/imp_diff_eval.rds')
 
@@ -57,8 +94,4 @@ pd = res[res[,'Dataset']=='H2228_H1975',]
 pd[,'Method'] = factor(as.character(pd[,'Method']),levels=mtdorder)
 pd3 <- pd
 
-hmdf[,'Method'] = factor(hmdf[,'Method'], levels = mtdorder)
-hmdf[,'platform'] = factor(hmdf[,'platform'], levels = c('10x','fluidigm'))
-hmdf[,'Dataset'] = factor(hmdf[,'Dataset'], levels = c('H2228_H1975', setdiff(unique(hmdf[,'Dataset']), 'H2228_H1975')))
-pd4 <- hmdf
 saveRDS(list(pd1=pd1,pd2=pd2,pd3=pd3,pd4=pd4),'./plot/pd/15_imp_diff_eval_4subfig.pd.rds')

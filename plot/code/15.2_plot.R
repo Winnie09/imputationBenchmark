@@ -33,7 +33,7 @@ v <- coldf[match(pd3$Method,coldf$fullName),'color']
 names(v) <- pd3$Method
 
 p3 <- ggplot() + 
-  geom_jitter(data=pd3,aes(x=Method,y=Correlation,color=Method),size=0.05,width=0.2,alpha=0.5)+
+  geom_jitter(data=pd3,aes(x=Method,y=Correlation,color=Method),size=0.05,width=0.2,alpha=0.3)+
   geom_violin(data=pd3, aes(Method, Correlation),scale='width',fill=NA) + coord_flip() + theme_classic() + 
   geom_hline(yintercept = rawcor, color='red',linetype="dashed",size=1.5)+
   xlab('') + ylab('correlation between single cells and bulk') +

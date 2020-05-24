@@ -15,7 +15,9 @@ for (i in 1:17){
 }
 pd3sp = pd3[id,]
 pd4[,'method'] = factor(coldf[match(pd4[,'method'],coldf[,'shortName']),'fullName'],levels=coldf[match(levels(pd4$method),coldf[,'shortName']),'fullName'])
-
+pd4[,'ct'] <- sub('10x_','',as.character(pd4[,'ct']))
+pd4[,'ct'] <- sub('fluidigm_','',pd4[,'ct'])
+pd4[,'ct'] <- factor(as.character(pd4[,'ct']), levels = c('A549(1256)', 'H838(876)', 'H2228(758)', 'HCC827(588)', 'H1975(440)', 'GM12878(96)', 'H1(96)', 'A549(74)', 'K562(73)', 'IMR90(23)'))
 
 library(reshape2)
 library(gridExtra)
