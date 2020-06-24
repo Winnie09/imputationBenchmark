@@ -1,10 +1,10 @@
 rm(list=ls())
-# setwd('/home-4/whou10@jhu.edu/scratch/Wenpin/rna_imputation')
-setwd('/Users/wenpinhou/Dropbox/rna_imputation')
+setwd('/home-4/whou10@jhu.edu/scratch/Wenpin/rna_imputation')
+#setwd('/Users/wenpinhou/Dropbox/rna_imputation')
 coldf = readRDS('./resource/method_latent_color.rds')
 source('./resource/function.R')
-# clumethod = commandArgs(trailingOnly = T)[1]
-clumethod='louvein'
+clumethod = commandArgs(trailingOnly = T)[1]
+# clumethod='kmeans'
 allf = list.files(paste0('./clustering/perf/cellbench/',clumethod,'/medianSil/'))
 allf = setdiff(allf,'zinbwave.rds')
 res <- lapply(allf,function(f){
@@ -18,8 +18,8 @@ d$method = factor(coldf[match(as.character(d$method),coldf$shortName),'fullName'
 library(ggplot2)
 library(gridExtra)
 library(viridis)
-
-p1 <- ggplot(d,aes(x=data,y=method,fill=Hacc)) + geom_tile() + theme_hm2(d$method) + 
+library(RColorBrewer)
+p1 <- ggplot(d,aes(x=data,y=method,fill=Hacc)) + geom_tile(color='grey') + theme_hm2(d$method) + 
       theme(axis.text.x = element_text(angle=30,hjust=1)) + xlab('') + ylab('') +
    scale_fill_gradientn(colors=rev(brewer.pal(9,'YlGnBu')))  +
    guides(fill = guide_colourbar(barwidth = 0.6, barheight = 8,title.position = 'top',title.hjust=0.3,title.vjust=NULL)) + theme(legend.position = 'right')

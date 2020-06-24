@@ -56,15 +56,15 @@ res1 = res1[int]
 res2 = res2[int]
 
 pd4 = data.frame(kmeans=res1, louvein=res2,mtd=int)
+v <- coldf[match(int,coldf$fullName),'color']
+names(v) = int
 p4 <- ggplot(pd4,aes(x=louvein,y=kmeans,label=mtd,color=mtd)) + geom_point() + geom_text_repel() + 
   theme_bw() + theme(legend.position = 'none') +xlim(c(0.35,0.85)) + ylim(c(0.3,0.75)) + 
-  scale_color_manual(values=coldf[match(int,coldf$fullName),'color']) +
+  scale_color_manual(values=v) +
   ylab('k-means') + xlab('Louvain') + ggtitle('overall score')
 
 library(gridExtra)
 pdf(paste0('./clustering/plot/pbmc/plot/',clumethod,'/clustering_summary.pdf'),width=6.5,height=6.5)
 grid.arrange(p0,p1,p4,layout_matrix= cbind(matrix(1,nrow=7,ncol=3),rbind(matrix(0,ncol=4,nrow=3),matrix(4,ncol=4,nrow=4))))
 dev.off()
-
-
 
