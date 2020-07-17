@@ -5,3 +5,4 @@
 !*/
 !*/*.R
 !*/code/procimpute/10xcellline/*.R
+!code/procimpute/cellbench/*.R
