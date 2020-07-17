@@ -1,13 +1,13 @@
-setwd('/home-4/whou10@jhu.edu/scratch/Wenpin/rna_imputation')
-ove_high = readRDS(paste0('./realDE/result/cellbench/overlap/mast/bulk_sc_diffgene_overlaps_moreExprGene.rds'))
-
-v = apply(ove_high, 1, mean, na.rm=T)
-mtdorder1 = names(sort(rowMeans(ove_high,na.rm=T)))
-v    = v[mtdorder1]
-ove_low = readRDS(paste0('./realDE/result/cellbench/overlap/mast/bulk_sc_diffgene_overlaps_lessExprGene.rds'))
-u = apply(ove_low, 1, mean, na.rm=T)
-mtdorder2 = names(sort(rowMeans(ove_low,na.rm=T)))
-u = u[mtdorder2]
+# setwd('/home-4/whou10@jhu.edu/scratch/Wenpin/rna_imputation')
+# ove_high = readRDS(paste0('./realDE/result/cellbench/overlap/mast/bulk_sc_diffgene_overlaps_moreExprGene.rds'))
+# 
+# v = apply(ove_high, 1, mean, na.rm=T)
+# mtdorder1 = names(sort(rowMeans(ove_high,na.rm=T)))
+# v    = v[mtdorder1]
+# ove_low = readRDS(paste0('./realDE/result/cellbench/overlap/mast/bulk_sc_diffgene_overlaps_lessExprGene.rds'))
+# u = apply(ove_low, 1, mean, na.rm=T)
+# mtdorder2 = names(sort(rowMeans(ove_low,na.rm=T)))
+# u = u[mtdorder2]
 
 
 ##################3
@@ -34,43 +34,71 @@ for (diffmtd in c('wilcox','mast')){
   pd_high$method = factor(as.character(pd_high$method),levels=mtdorder1)
   
   napd = getNapd(coldf,pd_high,analysis.type='realDE',analysis.method=diffmtd,dataset='cellbench')
-  colnames(napd)[3] <- 'overlap'
+  if (!is.null(napd)) colnames(napd)[3] <- 'overlap'
   pd_high <- rbind(pd_high,napd[,1:3])
   pd_high$method = factor(as.character(pd_high$method),levels=c(levels(napd$method),mtdorder1))
-  levels(napd$method)  <- levels(pd_high$method)
+  if (!is.null(napd)) levels(napd$method)  <- levels(pd_high$method)
   nav <- c('grey','black')
   names(nav) <- c('DifferentialFail','ImputationFail')
   
-  p1 <- ggplot() + geom_tile(data=pd_high,aes(x=data,y=method,fill=overlap))+ 
-    geom_tile(data=napd,aes(x=data,y=method,color=NA.reason),fill='white',size=0.2) + 
-    theme_minimal() + xlab('') + ylab('')+
-    labs(fill='overlap') + ggtitle(paste0(ifelse(diffmtd=='mast','MAST','Wilcox'),',high-foldchange genes')) +
-    theme_hm(pd_high$method)+
-    scale_fill_gradientn(colors=rev(brewer.pal(9,'YlGnBu')),values=c(0,0.2,0.4,0.5,0.6,0.7,0.8,0.9,1)) +
-    guides(fill = guide_colourbar(barwidth = 0.6, barheight = 5,title.position = 'top',title.hjust=0.5,vjust=10))+
-    scale_color_manual(values=nav)+
-    theme(legend.key.width=unit(0.3,'cm'),legend.key.height = unit(0.3,'cm'))
+  if (is.null(napd)){
+    p1 <- ggplot() + geom_tile(data=pd_high,aes(x=data,y=method,fill=overlap))+ 
+      theme_minimal() + xlab('') + ylab('')+
+      labs(fill='overlap') + ggtitle(paste0(ifelse(diffmtd=='mast','MAST','Wilcox'),',high-foldchange genes')) +
+      theme_hm(pd_high$method)+
+      scale_fill_gradientn(colors=rev(brewer.pal(9,'YlGnBu')),values=c(0,0.2,0.4,0.5,0.6,0.7,0.8,0.9,1)) +
+      guides(fill = guide_colourbar(barwidth = 0.6, barheight = 5,title.position = 'top',title.hjust=0.5,vjust=10))+
+      scale_color_manual(values=nav)+
+      theme(legend.key.width=unit(0.3,'cm'),legend.key.height = unit(0.3,'cm'))
+  } else {
+    p1 <- ggplot() + geom_tile(data=pd_high,aes(x=data,y=method,fill=overlap))+ 
+      geom_tile(data=napd,aes(x=data,y=method,color=NA.reason),fill='white',size=0.2) + 
+      theme_minimal() + xlab('') + ylab('')+
+      labs(fill='overlap') + ggtitle(paste0(ifelse(diffmtd=='mast','MAST','Wilcox'),',high-foldchange genes')) +
+      theme_hm(pd_high$method)+
+      scale_fill_gradientn(colors=rev(brewer.pal(9,'YlGnBu')),values=c(0,0.2,0.4,0.5,0.6,0.7,0.8,0.9,1)) +
+      guides(fill = guide_colourbar(barwidth = 0.6, barheight = 5,title.position = 'top',title.hjust=0.5,vjust=10))+
+      scale_color_manual(values=nav)+
+      theme(legend.key.width=unit(0.3,'cm'),legend.key.height = unit(0.3,'cm'))
+  }
+    
+    
   
   pd_low = melt(ove_low)
   colnames(pd_low)=c('method','data','overlap')
   pd_low$method = factor(as.character(pd_low$method),levels=mtdorder2)
   
   napd = getNapd(coldf,pd_low,analysis.type='realDE',analysis.method=diffmtd,dataset='cellbench')
-  colnames(napd)[3] <- 'overlap'
+  if (!is.null(napd)) colnames(napd)[3] <- 'overlap'
   pd_low <- rbind(pd_low,napd[,1:3])
   pd_low$method = factor(as.character(pd_low$method),levels=c(levels(napd$method),mtdorder2))
-  levels(napd$method)  <- levels(pd_low$method)
+  if (!is.null(napd)) levels(napd$method)  <- levels(pd_low$method)
   
   
-  p2 <- ggplot() + geom_tile(data=pd_low,aes(x=data,y=method,fill=overlap))+ 
-    geom_tile(data=napd,aes(x=data,y=method,color=NA.reason),fill='white',size=0.2) + 
-    theme_minimal() + xlab('') + ylab('')+
-    labs(fill='overlap') + ggtitle(paste0(ifelse(diffmtd=='mast','MAST','Wilcox'),',low-foldchange genes')) +
-    theme_hm(pd_low$method)+
-    scale_fill_gradientn(colors=rev(brewer.pal(9,'YlGnBu')),values=c(0,0.2,0.4,0.5,0.6,0.7,0.8,0.9,1)) +
-    guides(fill = guide_colourbar(barwidth = 0.6, barheight = 5,title.position = 'top',title.hjust=0.5,vjust=10))+
-    scale_color_manual(values=nav)+
-    theme(legend.key.width=unit(0.3,'cm'),legend.key.height = unit(0.3,'cm'))
+  if (is.null(napd)){
+    p2 <- ggplot() + geom_tile(data=pd_low,aes(x=data,y=method,fill=overlap))+ 
+      theme_minimal() + xlab('') + ylab('')+
+      labs(fill='overlap') + ggtitle(paste0(ifelse(diffmtd=='mast','MAST','Wilcox'),',low-foldchange genes')) +
+      theme_hm(pd_low$method)+
+      scale_fill_gradientn(colors=rev(brewer.pal(9,'YlGnBu')),values=c(0,0.2,0.4,0.5,0.6,0.7,0.8,0.9,1)) +
+      guides(fill = guide_colourbar(barwidth = 0.6, barheight = 5,title.position = 'top',title.hjust=0.5,vjust=10))+
+      scale_color_manual(values=nav)+
+      theme(legend.key.width=unit(0.3,'cm'),legend.key.height = unit(0.3,'cm'))
+    
+  } else {
+    p2 <- ggplot() + geom_tile(data=pd_low,aes(x=data,y=method,fill=overlap))+ 
+      geom_tile(data=napd,aes(x=data,y=method,color=NA.reason),fill='white',size=0.2) + 
+      theme_minimal() + xlab('') + ylab('')+
+      labs(fill='overlap') + ggtitle(paste0(ifelse(diffmtd=='mast','MAST','Wilcox'),',low-foldchange genes')) +
+      theme_hm(pd_low$method)+
+      scale_fill_gradientn(colors=rev(brewer.pal(9,'YlGnBu')),values=c(0,0.2,0.4,0.5,0.6,0.7,0.8,0.9,1)) +
+      guides(fill = guide_colourbar(barwidth = 0.6, barheight = 5,title.position = 'top',title.hjust=0.5,vjust=10))+
+      scale_color_manual(values=nav)+
+      theme(legend.key.width=unit(0.3,'cm'),legend.key.height = unit(0.3,'cm'))
+    
+  }
+    
+  
   
   v_high = sort(rowMeans(ove_high,na.rm=T))
   v_low = sort(rowMeans(ove_low,na.rm=T)) 

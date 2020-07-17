@@ -24,14 +24,15 @@ pdf('./realDE/plot/cellbench/plot/mast/overlap_hm.pdf',height=5,width=5)
 ggplot() + geom_tile(data=fullpd,aes(x=data, y=method, fill=prop)) + geom_tile(data=napd,aes(x=data,y=method,color=type),fill='white',size=0.2) + 
   scale_fill_gradientn(colors=rev(brewer.pal(9,'YlGnBu')),values=c(0,0.2,0.4,0.6,0.7,0.8,0.9,0.95,1)) +
   theme_minimal() + xlab('') + ylab('') + theme_hm(fullpd$method) + scale_color_manual(values=c('grey','black'))+
-  guides(fill = guide_colourbar(barwidth = 0.8, barheight = 5,title.position = 'top'))
+  guides(fill = guide_colourbar(barwidth = 0.8, barheight = 5,title.position = 'top'))+
+  ggtitle('MAST')
 dev.off()
 
 ## wilcox
 pd = readRDS('./realDE/plot/cellbench/plot/wilcox/overlap_hm_pd.rds')
 pd[,'method'] = factor(coldf[match(pd[,'method'],coldf[,'shortName']),'fullName'],levels=coldf[match(levels(pd$method),coldf[,'shortName']),'fullName'])
 
-pdf('./realDE/plot/cellbench/plot/wilcox/overlap_hm.pdf',height=3.8,width=4)
+pdf('./realDE/plot/cellbench/plot/wilcox/overlap_hm.pdf',height=5,width=5)
 ggplot(pd,aes(x=data, y=method, fill=prop)) + geom_tile() + 
   scale_fill_gradientn(colors=rev(brewer.pal(9,'YlGnBu')),values=c(0,0.2,0.4,0.6,0.7,0.8,0.9,0.95,1)) +
   theme_minimal() + xlab('') + ylab('')+
