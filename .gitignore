@@ -3,3 +3,4 @@
 !.gitignore
 !*.R
 !*/
+!/code/procimpute/*/*.R
