@@ -4,3 +4,4 @@
 !*.R
 !*/
 !*/*.R
+!*/code/procimpute/10xcellline/*.R
