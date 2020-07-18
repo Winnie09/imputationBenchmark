@@ -1,7 +1,0 @@
-*
-
-!.gitignore
-!*.R
-!*/
-!**/**/
-!code/procimpute/cellbench/scimpute.R

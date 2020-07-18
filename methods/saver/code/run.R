@@ -1,6 +1,0 @@
-library(SAVER)
-library(parallel)
-packageVersion("SAVER")
-data <- readRDS(paste0(commandArgs(trailingOnly = T)[1]))
-data.saver <- saver(data, ncores = 12)
-saveRDS(data.saver, paste0(commandArgs(trailingOnly = T)[2]))
