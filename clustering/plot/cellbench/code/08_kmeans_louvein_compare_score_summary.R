@@ -1,0 +1,13 @@
+v1 = readRDS('/home-4/whou10@jhu.edu/scratch/Wenpin/rna_imputation/result/perf/assess/clustering_kmeans_cellbench.rds')
+v2 = readRDS('/home-4/whou10@jhu.edu/scratch/Wenpin/rna_imputation/result/perf/assess/clustering_louvein_cellbench.rds')
+int = intersect(names(v1), names(v2))
+str(int)
+pd = data.frame(kmeans = v1[int], louvein = v2[int], mtd = int)
+str(pd)
+library(ggplot2)
+library(reshape2)
+library(ggrepel)
+pdf('/home-4/whou10@jhu.edu/scratch/Wenpin/rna_imputation/clustering/plot/cellbench/plot/compare/kmeans_louvein_score_summary.pdf',width=4,height=4)
+ggplot(pd,aes(x=louvein,y=kmeans,label=mtd,color=mtd)) + geom_point() + geom_text_repel() +
+  theme_bw() + theme(legend.position = 'none') 
+dev.off()
