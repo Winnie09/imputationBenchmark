@@ -1,0 +1,7 @@
+library(data.table)
+f <- sub('.csv','',list.files('/home-4/whou10@jhu.edu/scratch/Wenpin/rna_imputation/result/impute/hca/saucie_latent'))
+d <- readRDS('/home-4/whou10@jhu.edu/scratch/Wenpin/rna_imputation/data/processed/hca/MantonBM6/genebycell.rds')
+sexpr <-  as.matrix(fread(paste0('/home-4/whou10@jhu.edu/scratch/Wenpin/rna_imputation/result/impute/hca/saucie_latent/',f,'.csv'),data.table = F))
+sexpr = t(sexpr)
+colnames(sexpr) = colnames(d)
+saveRDS(sexpr,file=paste0("/home-4/whou10@jhu.edu/scratch/Wenpin/rna_imputation/result/procimpute/hca/saucie_latent/",f,'.rds'))

@@ -1,0 +1,5 @@
+library(VIPER)
+data <- readRDS(paste0(commandArgs(trailingOnly = T)[1]))
+res <- VIPER(data, num = 5000, percentage.cutoff = 0.1, minbool = FALSE, alpha = 1, report = FALSE, outdir = NULL, prefix = NULL)
+res <- log2(exp(res$imputed_log)+1)
+saveRDS(res,paste0(commandArgs(trailingOnly = T)[2]))

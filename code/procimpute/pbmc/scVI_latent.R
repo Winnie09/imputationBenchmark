@@ -1,0 +1,11 @@
+library(data.table)
+allf <- sub('.csv','',list.files('/home-4/whou10@jhu.edu/scratch/Wenpin/rna_imputation/result/impute/pbmc/scVI_latent'))
+res <- lapply(allf,function(f) {
+  print(f)
+  d <- readRDS(paste0('/home-4/whou10@jhu.edu/scratch/Wenpin/rna_imputation/data/processed/pbmc/',f,'/genebycell.rds'))
+  sexpr <- as.matrix(fread(paste0('/home-4/whou10@jhu.edu/scratch/Wenpin/rna_imputation/result/impute/pbmc/scVI_latent/',f,'.csv'),data.table = F))
+  sexpr = t(sexpr)
+  colnames(sexpr) = colnames(d)
+  saveRDS(sexpr,file=paste0("/home-4/whou10@jhu.edu/scratch/Wenpin/rna_imputation/result/procimpute/pbmc/scVI_latent/",f,'.rds'))
+})
+

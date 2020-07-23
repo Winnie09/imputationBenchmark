@@ -1,0 +1,7 @@
+library(data.table)
+f <- sub('.csv','',list.files('/home-4/whou10@jhu.edu/scratch/Wenpin/rna_imputation/result/impute/hca/scscope_latent/'))
+print(f)
+d <- readRDS('/home-4/whou10@jhu.edu/scratch/Wenpin/rna_imputation/data/processed/hca/MantonBM6/genebycell.rds')
+sexpr <-  t(as.matrix(fread(paste0('/home-4/whou10@jhu.edu/scratch/Wenpin/rna_imputation/result/impute/hca/scscope_latent/',f,'.csv'),data.table = F)))
+colnames(sexpr) <- colnames(d)
+saveRDS(sexpr,file=paste0("/home-4/whou10@jhu.edu/scratch/Wenpin/rna_imputation/result/procimpute/hca/scscope_latent/",f,'.rds'))

@@ -1,0 +1,6 @@
+getf = list.files('/home-4/whou10@jhu.edu/scratch/Wenpin/rna_imputation/simu/result/diff_mast/diff')
+allf = list.files('/home-4/whou10@jhu.edu/scratch/Wenpin/rna_imputation/simu/result/procimpute')
+v = setdiff(allf, getf)
+sink('/home-4/whou10@jhu.edu/scratch/Wenpin/rna_imputation/simu/code/diff_mast/redo.txt')
+writeLines(v)
+sink()
