@@ -2,7 +2,7 @@
 
 ### For the community
 Our apologies that we are still working on this README page to provide more details of the codes. Recently we received many emails from researchers who want to apply
-this evaluation pipeline in some projects, or introduce these analysis in courses. If you have questions about the codes location of any analysis, or want to 
+this evaluation pipeline in some projects, or introduce these analyses in courses. If you have questions about the codes location of any analyses, or want to 
 have a copy of the processed data in this work, please email me at whou10@jhu.edu.  We are more than happy to provide these. We appreicate your interest and patience.
 
 ### Publication
