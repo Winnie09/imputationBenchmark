@@ -25,6 +25,15 @@ Since we have received many emails requesting processed data or imputed data tha
 * GSE81861
 * hca
 
+**[sharing Dropbox folder for imputed data](https://www.dropbox.com/sh/3ew63hxl8pxrpdq/AAA0FAk3T2dWkrtGZs-MdSESa?dl=0)** (after processing, log2-scaled library-size-normalized). It consists of these folders:
+
+* 10xcellline
+* cellbench
+* GSE81861
+* hca
+* pbmc
+
+
 **Imputed data** are quite large. I will share the link as soon as I finish loading these data to Dropbox. 
 
 We also received many emails from researchers who want to apply
